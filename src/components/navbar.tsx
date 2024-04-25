@@ -4,6 +4,8 @@ import {RiMenu2Line} from "react-icons/ri";
 import {motion} from "framer-motion";
 import {MdClose} from "react-icons/md";
 
+export const sosmed = [<FaFacebook />, <FaTwitter />, <FaYoutube />];
+
 function NavbarSection() {
   const [open, setOpen] = useState<boolean>(false);
   const items = [
@@ -29,8 +31,6 @@ function NavbarSection() {
     },
   ];
 
-  const sosmed = [<FaFacebook />, <FaTwitter />, <FaYoutube />];
-
   const variants = {
     open: {
       clipPath: "circle(1200px at 50px 50px)",
@@ -52,7 +52,7 @@ function NavbarSection() {
   return (
     <nav className="flex h-20 border-b items-center">
       <div className="flex w-[90%] mx-auto items-center justify-between md:justify-end gap-8 relative">
-        <div className="">
+        <div>
           <button
             className="flex md:hidden text-2xl text-black"
             onClick={() => setOpen((prev) => !prev)}
@@ -69,8 +69,10 @@ function NavbarSection() {
         </ul>
         <motion.div
           variants={variants}
-          animate={open ? "closed" : "open"}
-          className="fixed top-0 bottom-0 left-0 right-0 bg-white md:hidden"
+          animate={open ? "open" : "closed"}
+          className={`fixed top-0 bottom-0 left-0 right-0 bg-white ${
+            open ? "" : "hidden"
+          }`}
         >
           <ul className="flex flex-col justify-center items-center h-screen gap-7 relative">
             <button
