@@ -50,12 +50,18 @@ function AboutSection() {
     triggerOnce: true,
     rootMargin: "-10px 0px",
   });
+  const [ref2, inView2] = useInView({
+    triggerOnce: true,
+    rootMargin: "-10px 0px",
+  });
+  const [ref3, inView3] = useInView({
+    triggerOnce: true,
+    rootMargin: "-10px 0px",
+  });
   return (
-    <section
-      ref={ref}
-      className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center my-10"
-    >
+    <section className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center my-10">
       <motion.div
+        ref={ref}
         variants={leftVariant}
         initial="hidden"
         animate={inView ? "animate" : "hidden"}
@@ -75,9 +81,10 @@ function AboutSection() {
         </motion.div>
       </motion.div>
       <motion.div
+        ref={ref2}
         variants={centerVariant}
         initial="hidden"
-        animate={inView ? "animate" : "hidden"}
+        animate={inView2 ? "animate" : "hidden"}
         className="flex flex-col h-full bg-secondary shadow-roundM text-white p-6 gap-4 md:rounded-bl-lg lg:rounded-lg"
       >
         <h1 className="text-4xl font-[500]">About Us</h1>
@@ -101,9 +108,10 @@ function AboutSection() {
         </div>
       </motion.div>
       <motion.div
+        ref={ref3}
         variants={rightVariants}
         initial="hidden"
-        animate={inView ? "animate" : "hidden"}
+        animate={inView3 ? "animate" : "hidden"}
         className="flex flex-col h-full lg:h-fit  bg-white shadow-round p-8 rounded-b-lg md:rounded-b-none md:rounded-br-lg lg:rounded-r-lg gap-3"
       >
         <motion.h2
