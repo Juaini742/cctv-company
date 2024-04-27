@@ -1,7 +1,7 @@
-import {motion, useInView} from "framer-motion";
+import {motion} from "framer-motion";
+import {useInView} from "react-intersection-observer";
 import {FaLongArrowAltRight} from "react-icons/fa";
-import {opacityVariant} from "../App";
-import {useRef} from "react";
+import {mapVariants} from "./provide";
 
 const articles = [
   {
@@ -18,8 +18,10 @@ const articles = [
   },
 ];
 function BlogSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, {once: true, margin: "-100px"});
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    rootMargin: "-10px 0px",
+  });
   return (
     <section ref={ref} className="w-[90%] mx-auto mt-10">
       <div className="mb-5">
@@ -35,9 +37,9 @@ function BlogSection() {
         {articles.map((item, index) => (
           <motion.div
             key={index}
-            variants={opacityVariant}
-            initial="initial"
-            animate={inView && "animate"}
+            variants={mapVariants(index)}
+            initial="hidden"
+            animate={inView ? "animate" : "hidden"}
             className="hover:bg-primary/20 group p-2 rounded-lg trans-300"
           >
             <div className="h-[300px] sm:h-[400px] md:min-h-[500px] flex justify-center items-center overflow-hidden rounded-lg">

@@ -1,11 +1,25 @@
-import {motion, useInView} from "framer-motion";
+import {motion} from "framer-motion";
+import {useInView} from "react-intersection-observer";
 import {FaCamera, FaFire, FaHome, FaLongArrowAltRight} from "react-icons/fa";
 import {opacityVariant} from "../App";
-import {useRef} from "react";
+
+export const mapVariants = (index: number) => ({
+  hidden: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      duration: 1 * index,
+    },
+  },
+});
 
 function ProvideSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, {once: true, margin: "-100px"});
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    rootMargin: "-10px 0px",
+  });
 
   const provides = [
     {
@@ -28,9 +42,9 @@ function ProvideSection() {
   return (
     <section ref={ref} className="w-[90%] mx-auto mt-10 flex flex-col gap-5">
       <motion.div
-        variants={opacityVariant}
-        initial="initial"
-        animate={inView && "animate"}
+        initial={{opacity: 0}}
+        animate={inView ? {opacity: 1} : {opacity: 0}}
+        transition={{duration: 1}}
         className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between items-end "
       >
         <h1 className="text-5xl font-[600] text-primary">
@@ -48,15 +62,13 @@ function ProvideSection() {
           </button>
         </p>
       </motion.div>
-      <motion.div
-        variants={opacityVariant}
-        initial="initial"
-        animate={inView && "animate"}
-        className="grid grid-cols-1 lg:grid-cols-[330px_330px_330px] justify-center gap-4 mt-8"
-      >
+      <motion.div className="grid grid-cols-1 lg:grid-cols-[330px_330px_330px] justify-center gap-4 mt-8">
         {provides.map((item, index) => (
-          <div
+          <motion.div
             key={index}
+            variants={mapVariants(index)}
+            initial="hidden"
+            animate={inView ? "animate" : "hidden"}
             className="p-3 group  hover:bg-white hover:shadow-round rounded-full"
           >
             <motion.div
@@ -74,7 +86,7 @@ function ProvideSection() {
                 Learn More
               </button>
             </motion.div>
-          </div>
+          </motion.div>
         ))}
       </motion.div>
     </section>

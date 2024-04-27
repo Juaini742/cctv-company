@@ -1,20 +1,24 @@
-import {motion, useInView} from "framer-motion";
-import {useRef} from "react";
+import {motion} from "framer-motion";
+import {useInView} from "react-intersection-observer";
 import {BsFillHandThumbsUpFill} from "react-icons/bs";
 
 const leftVariant = {
-  initial: {
+  hidden: {
+    x: -400,
     opacity: 0,
   },
   animate: {
+    x: 0,
     opacity: 1,
     transition: {
       duration: 1,
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
     },
   },
 };
 const centerVariant = {
-  initial: {
+  hidden: {
     opacity: 0,
   },
   animate: {
@@ -26,25 +30,26 @@ const centerVariant = {
 };
 
 const rightVariants = {
-  initial: {
-    x: 500,
+  hidden: {
+    x: 400,
     opacity: 0,
   },
   animate: {
     x: 0,
     opacity: 1,
     transition: {
-      duration: 1,
+      duration: 0.8,
       staggerChildren: 0.1,
-      delayChildren: 1,
+      delayChildren: 0.2,
     },
   },
 };
 
 function AboutSection() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const inView = useInView(ref, {margin: "-100px"});
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    rootMargin: "-10px 0px",
+  });
   return (
     <section
       ref={ref}
@@ -52,21 +57,27 @@ function AboutSection() {
     >
       <motion.div
         variants={leftVariant}
-        initial="initial"
-        animate={inView && "animate"}
+        initial="hidden"
+        animate={inView ? "animate" : "hidden"}
         className="flex flex-col h-80 overflow-hidden shadow-round rounded-t-lg lg:rounded-tr-none lg:rounded-l-lg col-span-1 md:col-span-2 lg:col-span-1"
       >
-        <div className="overflow-hidden flex items-center">
+        <motion.div
+          variants={leftVariant}
+          className="overflow-hidden flex items-center"
+        >
           <img src="./about.jpg" alt="" className="object-fill" />
-        </div>
-        <div className="overflow-hidden flex items-center">
+        </motion.div>
+        <motion.div
+          variants={leftVariant}
+          className="overflow-hidden flex items-center"
+        >
           <img src="./about2.jpg" alt="" className="object-fill" />
-        </div>
+        </motion.div>
       </motion.div>
       <motion.div
         variants={centerVariant}
-        initial="initial"
-        animate={inView && "animate"}
+        initial="hidden"
+        animate={inView ? "animate" : "hidden"}
         className="flex flex-col h-full bg-secondary shadow-roundM text-white p-6 gap-4 md:rounded-bl-lg lg:rounded-lg"
       >
         <h1 className="text-4xl font-[500]">About Us</h1>
@@ -91,8 +102,8 @@ function AboutSection() {
       </motion.div>
       <motion.div
         variants={rightVariants}
-        initial="initial"
-        animate={inView && "animate"}
+        initial="hidden"
+        animate={inView ? "animate" : "hidden"}
         className="flex flex-col h-full lg:h-fit  bg-white shadow-round p-8 rounded-b-lg md:rounded-b-none md:rounded-br-lg lg:rounded-r-lg gap-3"
       >
         <motion.h2

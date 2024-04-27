@@ -1,10 +1,11 @@
-import {motion, useInView} from "framer-motion";
-import {opacityVariant} from "../App";
-import {useRef} from "react";
+import {motion} from "framer-motion";
+import {useInView} from "react-intersection-observer";
 
 function BannerSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, {once: true, margin: "-100px"});
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    rootMargin: "-10px 0px",
+  });
 
   return (
     <section
@@ -17,13 +18,13 @@ function BannerSection() {
       className="bg-cover bg-no-repeat"
       ref={ref}
     >
-      <motion.div
-        variants={opacityVariant}
-        initial="initial"
-        animate={inView && "animate"}
-        className="bg-black/45 w-full h-full"
-      >
-        <div className="w-[90%] mx-auto text-center flex justify-center items-center flex-col h-full gap-5">
+      <div className="bg-black/45 w-full h-full">
+        <motion.div
+          initial={{opacity: 0}}
+          animate={inView ? {opacity: 1} : {opacity: 0}}
+          transition={{duration: 1}}
+          className="w-[90%] mx-auto text-center flex justify-center items-center flex-col h-full gap-5"
+        >
           <h1 className="text-5xl font-[600] text-white">
             Security Solutions for Your <br /> Work and Home
           </h1>
@@ -37,8 +38,8 @@ function BannerSection() {
               Learn More
             </button>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }

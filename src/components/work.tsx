@@ -1,4 +1,5 @@
-import {motion, useInView} from "framer-motion";
+import {motion} from "framer-motion";
+import {useInView} from "react-intersection-observer";
 import {
   FaComments,
   FaLongArrowAltDown,
@@ -6,8 +7,7 @@ import {
   FaTools,
   FaWrench,
 } from "react-icons/fa";
-import {opacityVariant} from "../App";
-import {useRef} from "react";
+import {mapVariants} from "./provide";
 
 const works = [
   {
@@ -28,12 +28,18 @@ const works = [
 ];
 
 function WorkSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, {once: true, margin: "-100px"});
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    rootMargin: "-10px 0px",
+  });
 
   return (
     <section ref={ref} className="w-[90%] mx-auto mt-10">
-      <div className="text-center">
+      <motion.div
+        initial={{opacity: 0}}
+        animate={inView ? {opacity: 1} : {opacity: 0}}
+        className="text-center"
+      >
         <h1 className="text-5xl my-5 font-[600] text-primary">
           Our Working Process
         </h1>
@@ -42,21 +48,18 @@ function WorkSection() {
           officia inventore molestiae voluptatum dicta laudantium accusamus
           nobis?
         </p>
-      </div>
+      </motion.div>
       <div className="mt-10 flex flex-col md:flex-row gap-2">
         {works.map((item, index) => (
           <motion.div
             key={index}
-            variants={opacityVariant}
-            initial="initial"
-            animate={inView && "animate"}
+            variants={mapVariants(index)}
+            initial="hidden"
+            animate={inView ? "animate" : "hidden"}
             className="flex flex-col md:flex-row gap-2"
           >
             {(index === 1 || index === 2) && (
-              <motion.div
-                variants={opacityVariant}
-                className="flex justify-center items-center"
-              >
+              <motion.div className="flex justify-center items-center">
                 <span className="hidden md:block text-primary text-3xl">
                   <FaLongArrowAltRight />
                 </span>
@@ -65,10 +68,7 @@ function WorkSection() {
                 </span>
               </motion.div>
             )}
-            <motion.div
-              variants={opacityVariant}
-              className="group shadow-round rounded-lg p-2 relative"
-            >
+            <motion.div className="group shadow-round rounded-lg p-2 relative">
               <div className="w-fit p-4 rounded-full bg-secondary group-hover:bg-primary flex justify-center items-center absolute left-0 right-0 m-auto">
                 <span className="text-2xl text-white">{item.icon}</span>
               </div>

@@ -10,7 +10,7 @@ import BlogSection from "./components/blog";
 import FooterSection from "./components/footer";
 
 export const opacityVariant = {
-  initial: {
+  hidden: {
     opacity: 0,
   },
   animate: {
