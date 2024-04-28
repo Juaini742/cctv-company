@@ -4,7 +4,7 @@ import {BsFillHandThumbsUpFill} from "react-icons/bs";
 
 const leftVariant = {
   hidden: {
-    x: -400,
+    x: -300,
     opacity: 0,
   },
   animate: {
@@ -31,7 +31,7 @@ const centerVariant = {
 
 const rightVariants = {
   hidden: {
-    x: 400,
+    x: 300,
     opacity: 0,
   },
   animate: {
@@ -48,38 +48,46 @@ const rightVariants = {
 function AboutSection() {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    rootMargin: "-10px 0px",
   });
   const [ref2, inView2] = useInView({
     triggerOnce: true,
-    rootMargin: "-10px 0px",
   });
   const [ref3, inView3] = useInView({
     triggerOnce: true,
-    rootMargin: "-10px 0px",
   });
   return (
     <section className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center my-10">
       <motion.div
-        ref={ref}
         variants={leftVariant}
         initial="hidden"
         animate={inView ? "animate" : "hidden"}
+        ref={ref}
         className="flex flex-col h-80 overflow-hidden shadow-round rounded-t-lg lg:rounded-tr-none lg:rounded-l-lg col-span-1 md:col-span-2 lg:col-span-1"
       >
         <motion.div
           variants={leftVariant}
           className="overflow-hidden flex items-center"
         >
-          <img src="./about.jpg" alt="" className="object-fill" />
+          {/* <img src="./about.jpg" alt="" className="object-fill" /> */}
+          <img
+            src="https://res.cloudinary.com/dixdqxpza/image/upload/v1714262139/about_jwb8iy.jpg"
+            alt=""
+            className="object-fill"
+          />
         </motion.div>
         <motion.div
           variants={leftVariant}
           className="overflow-hidden flex items-center"
         >
-          <img src="./about2.jpg" alt="" className="object-fill" />
+          {/* <img src="./about2.jpg" alt="" className="object-fill" /> */}
+          <img
+            src="https://res.cloudinary.com/dixdqxpza/image/upload/v1714262150/about2_yuq9ky.jpg"
+            alt=""
+            className="object-fill"
+          />
         </motion.div>
       </motion.div>
+
       <motion.div
         ref={ref2}
         variants={centerVariant}
@@ -107,6 +115,7 @@ function AboutSection() {
           </button>
         </div>
       </motion.div>
+
       <motion.div
         ref={ref3}
         variants={rightVariants}

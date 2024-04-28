@@ -133,7 +133,12 @@ function HeroSection() {
         >
           <div className="p-3 bg-white shadow-round rounded-t-full">
             <div className="w-64 h-96 overflow-hidden flex items-start rounded-t-full ">
-              <img src="./hero.jpg" alt="" className="object-fill" />
+              {/* <img src="./hero.jpg" alt="" className="object-fill" /> */}
+              <img
+                src="https://res.cloudinary.com/dixdqxpza/image/upload/v1714262140/hero_hutkuy.jpg"
+                alt=""
+                className="object-fill"
+              />
             </div>
           </div>
         </motion.div>

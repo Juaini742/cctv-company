@@ -5,15 +5,18 @@ import {mapVariants} from "./provide";
 
 const articles = [
   {
-    img: "/hero.jpg",
+    // img: "/hero.jpg",
+    img: "https://res.cloudinary.com/dixdqxpza/image/upload/v1714262140/hero_hutkuy.jpg",
     name: "Security Solutions",
   },
   {
-    img: "/hero.jpg",
+    // img: "/hero.jpg",
+    img: "https://res.cloudinary.com/dixdqxpza/image/upload/v1714262140/hero_hutkuy.jpg",
     name: "Monitor the workplace",
   },
   {
-    img: "/hero.jpg",
+    // img: "/hero.jpg",
+    img: "https://res.cloudinary.com/dixdqxpza/image/upload/v1714262140/hero_hutkuy.jpg",
     name: "Why choose secure",
   },
 ];

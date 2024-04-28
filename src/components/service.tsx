@@ -20,7 +20,6 @@ const variants = (index: number) => ({
 function ServiceSection() {
   const [ref, inView] = useInView({
     triggerOnce: true,
-    rootMargin: "-10% 0px",
   });
   const service = [
     {
