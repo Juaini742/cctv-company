@@ -1,19 +1,11 @@
-import {motion} from "framer-motion";
-import {useEffect, useState} from "react";
-import {useInView} from "react-intersection-observer";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 const textVariants = {
-  initial: {
-    x: -500,
-    opacity: 0,
-  },
-  animate: {
+  visible: {
     x: 0,
     opacity: 1,
-    transition: {
-      duration: 1,
-      staggerChildren: 0.1,
-    },
   },
   hidden: {
     x: -500,
@@ -22,15 +14,11 @@ const textVariants = {
 };
 
 const imgVariant = {
-  initial: {
-    x: 500,
-    opacity: 0,
-  },
   hidden: {
     x: 500,
     opacity: 0,
   },
-  animate: {
+  visible: {
     x: 0,
     opacity: 1,
     transition: {
@@ -84,14 +72,13 @@ function HeroSection() {
         ref={ref}
         className="flex flex-col-reverse md:flex-row justify-between items-center gap-8 w-full py-3"
       >
-        <motion.div
-          initial="hidden"
-          animate={inView ? "animate" : "hidden"}
-          variants={textVariants}
-          className="flex-1 flex flex-col gap-3"
-        >
+        <motion.div className="flex-1 flex flex-col gap-3">
           <motion.h1
             variants={textVariants}
+            ref={ref}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            transition={{ duration: 1 }}
             className="text-4xl lg:text-5xl text-primary font-[500] text-center md:text-left"
           >
             Professional <br />
@@ -100,6 +87,10 @@ function HeroSection() {
           </motion.h1>
           <motion.p
             variants={textVariants}
+            ref={ref}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            transition={{ duration: 1, delay: 0.5 }}
             className="lg:w-[600px] text-sm leading-6 text-gray-500 text-center md:text-left"
           >
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat ipsa
@@ -108,15 +99,15 @@ function HeroSection() {
           </motion.p>
           <motion.div
             variants={textVariants}
+            ref={ref}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            transition={{ duration: 1, delay: 0.9 }}
             className="flex gap-4 justify-center md:justify-start "
           >
             {count.map((item, index) => (
               <motion.div
                 key={index}
-                initial={{scale: 0.5, opacity: 0}}
-                animate={
-                  inView && {scale: 1, opacity: 1, transition: {duration: 1}}
-                }
                 className="p-3 rounded text-secondary flex justify-center flex-col items-center"
               >
                 <h5 className="font-bold text-4xl">{item}</h5>
@@ -126,9 +117,10 @@ function HeroSection() {
           </motion.div>
         </motion.div>
         <motion.div
-          initial="hidden"
-          animate={inView ? "animate" : "hidden"}
           variants={imgVariant}
+          ref={ref}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
           className="mr-3"
         >
           <div className="p-3 bg-white shadow-round rounded-t-full">

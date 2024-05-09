@@ -1,7 +1,5 @@
-import {motion} from "framer-motion";
-import {useInView} from "react-intersection-observer";
-import {FaCamera, FaFire, FaHome, FaLongArrowAltRight} from "react-icons/fa";
-import {opacityVariant} from "../App";
+import { motion } from "framer-motion";
+import { FaCamera, FaFire, FaHome, FaLongArrowAltRight } from "react-icons/fa";
 
 export const mapVariants = (index: number) => ({
   hidden: {
@@ -10,17 +8,13 @@ export const mapVariants = (index: number) => ({
   animate: {
     opacity: 1,
     transition: {
-      duration: 1 * index,
+      duration: 1,
+      delay: 0.5 * index,
     },
   },
 });
 
 function ProvideSection() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    rootMargin: "-10px 0px",
-  });
-
   const provides = [
     {
       icon: <FaCamera />,
@@ -40,11 +34,14 @@ function ProvideSection() {
   ];
 
   return (
-    <section ref={ref} className="w-[90%] mx-auto mt-10 flex flex-col gap-5">
+    <section className="w-[90%] mx-auto mt-10 flex flex-col gap-5">
       <motion.div
-        initial={{opacity: 0}}
-        animate={inView ? {opacity: 1} : {opacity: 0}}
-        transition={{duration: 1}}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        viewport={{
+          once: true,
+        }}
         className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between items-end "
       >
         <h1 className="text-5xl font-[600] text-primary">
@@ -62,19 +59,19 @@ function ProvideSection() {
           </button>
         </p>
       </motion.div>
-      <motion.div className="grid grid-cols-1 lg:grid-cols-[330px_330px_330px] justify-center gap-4 mt-8">
+      <div className="grid grid-cols-1 lg:grid-cols-[330px_330px_330px] justify-center gap-4 mt-8">
         {provides.map((item, index) => (
           <motion.div
             key={index}
             variants={mapVariants(index)}
             initial="hidden"
-            animate={inView ? "animate" : "hidden"}
-            className="p-3 group  hover:bg-white hover:shadow-round rounded-full"
+            whileInView="animate"
+            viewport={{
+              once: true,
+            }}
+            className="p-3 group hover:bg-white hover:shadow-round rounded-full"
           >
-            <motion.div
-              variants={opacityVariant}
-              className="px-8 py-5 lg:py-12 flex flex-col justify-center items-center lg:min-h-96 group-hover:bg-secondary trans-300 gap-5  rounded-full"
-            >
+            <div className="px-8 py-5 lg:py-12 flex flex-col justify-center items-center lg:min-h-96 group-hover:bg-secondary trans-300 gap-5  rounded-full">
               <span className="text-4xl group-hover:text-white">
                 {item.icon}
               </span>
@@ -85,10 +82,10 @@ function ProvideSection() {
               <button className="bg-primary rounded text-white px-5 py-2">
                 Learn More
               </button>
-            </motion.div>
+            </div>
           </motion.div>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 }

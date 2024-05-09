@@ -1,21 +1,21 @@
-import {motion} from "framer-motion";
-import {useInView} from "react-intersection-observer";
-import {FaBox, FaCogs, FaLightbulb, FaStar} from "react-icons/fa";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { FaBox, FaCogs, FaLightbulb, FaStar } from "react-icons/fa";
 
-const variants = (index: number) => ({
+const variants = {
   hidden: {
     y: 90,
     opacity: 0,
   },
-  animate: {
+  visible: (index: number) => ({
     y: 0,
     opacity: 1,
     transition: {
       duration: 0.7,
       delay: 0.2 * index,
     },
-  },
-});
+  }),
+};
 
 function ServiceSection() {
   const [ref, inView] = useInView({
@@ -52,9 +52,10 @@ function ServiceSection() {
         {service.map((item, index) => (
           <motion.div
             key={index}
-            variants={variants(index)}
+            variants={variants}
             initial="hidden"
-            animate={inView ? "animate" : "hidden"}
+            animate={inView ? "visible" : "hidden"}
+            custom={index}
             className=" text-white group text-center relative"
           >
             <div className="p-3 flex flex-col gap-2 rounded-lg group-hover:h-[230px] group-hover:absolute trans-300 group-hover:bg-primary -top-[44px] bottom-0 justify-center items-center">

@@ -1,7 +1,6 @@
-import {motion} from "framer-motion";
-import {useInView} from "react-intersection-observer";
-import {FaLongArrowAltRight} from "react-icons/fa";
-import {mapVariants} from "./provide";
+import { motion } from "framer-motion";
+import { FaLongArrowAltRight } from "react-icons/fa";
+import { mapVariants } from "./provide";
 
 const articles = [
   {
@@ -21,12 +20,8 @@ const articles = [
   },
 ];
 function BlogSection() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    rootMargin: "-10px 0px",
-  });
   return (
-    <section ref={ref} className="w-[90%] mx-auto mt-10">
+    <section className="w-[90%] mx-auto mt-10">
       <div className="mb-5">
         <h1 className="text-5xl font-[600] text-primary text-center mb-5">
           Blog & Article
@@ -42,7 +37,10 @@ function BlogSection() {
             key={index}
             variants={mapVariants(index)}
             initial="hidden"
-            animate={inView ? "animate" : "hidden"}
+            whileInView="animate"
+            viewport={{
+              once: true,
+            }}
             className="hover:bg-primary/20 group p-2 rounded-lg trans-300"
           >
             <div className="h-[300px] sm:h-[400px] md:min-h-[500px] flex justify-center items-center overflow-hidden rounded-lg">

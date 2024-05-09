@@ -1,5 +1,4 @@
-import {motion} from "framer-motion";
-import {useInView} from "react-intersection-observer";
+import { motion } from "framer-motion";
 import {
   FaComments,
   FaLongArrowAltDown,
@@ -7,7 +6,7 @@ import {
   FaTools,
   FaWrench,
 } from "react-icons/fa";
-import {mapVariants} from "./provide";
+import { mapVariants } from "./provide";
 
 const works = [
   {
@@ -28,16 +27,14 @@ const works = [
 ];
 
 function WorkSection() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    rootMargin: "-10px 0px",
-  });
-
   return (
-    <section ref={ref} className="w-[90%] mx-auto mt-10">
+    <section className="w-[90%] mx-auto mt-10">
       <motion.div
-        initial={{opacity: 0}}
-        animate={inView ? {opacity: 1} : {opacity: 0}}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        viewport={{
+          once: true,
+        }}
         className="text-center"
       >
         <h1 className="text-5xl my-5 font-[600] text-primary">
@@ -55,20 +52,23 @@ function WorkSection() {
             key={index}
             variants={mapVariants(index)}
             initial="hidden"
-            animate={inView ? "animate" : "hidden"}
+            whileInView="animate"
+            viewport={{
+              once: true,
+            }}
             className="flex flex-col md:flex-row gap-2"
           >
             {(index === 1 || index === 2) && (
-              <motion.div className="flex justify-center items-center">
+              <div className="flex justify-center items-center">
                 <span className="hidden md:block text-primary text-3xl">
                   <FaLongArrowAltRight />
                 </span>
                 <span className="md:hidden text-primary text-3xl">
                   <FaLongArrowAltDown />
                 </span>
-              </motion.div>
+              </div>
             )}
-            <motion.div className="group shadow-round rounded-lg p-2 relative">
+            <div className="group shadow-round rounded-lg p-2 relative">
               <div className="w-fit p-4 rounded-full bg-secondary group-hover:bg-primary flex justify-center items-center absolute left-0 right-0 m-auto">
                 <span className="text-2xl text-white">{item.icon}</span>
               </div>
@@ -78,7 +78,7 @@ function WorkSection() {
                 </h4>
                 <p className="text-sm group-hover:text-white">{item.desc}</p>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         ))}
       </div>
